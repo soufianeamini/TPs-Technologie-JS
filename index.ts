@@ -1,5 +1,4 @@
 import { input, select } from "@inquirer/prompts"
-import assert from "assert"
 
 type PokemonEntry = {
   name: string
@@ -62,7 +61,6 @@ async function selectPokemon(pokemons: PokemonEntry[]): Promise<PokemonEntry> {
     }
   }
 
-  assert(finalPokemon !== undefined)
   return finalPokemon as PokemonEntry
 }
 
@@ -181,7 +179,7 @@ async function runFight(player: FightingPokemon, enemy: FightingPokemon) {
     console.log("")
     console.log(`Your pokemon uses ${playerMove.name}!`)
     if (Math.random() * 100 <= playerMove.accuracy) {
-      console.log(`It deals ${playerMove.power} damage!`)
+      console.log(`It deals ${playerMove.power ?? 0} damage!`)
       enemy.hp -= playerMove.power
       if (enemy.hp < 0) enemy.hp = 0
       console.log(
@@ -197,7 +195,7 @@ async function runFight(player: FightingPokemon, enemy: FightingPokemon) {
     console.log("")
     console.log(`Enemy pokemon ${enemy.data.name} uses ${enemyMove.name}!`)
     if (Math.random() * 100 <= enemyMove.accuracy) {
-      console.log(`It deals ${enemyMove.power} damage!`)
+      console.log(`It deals ${enemyMove.power ?? 0} damage!`)
       player.hp -= enemyMove.power
       if (player.hp < 0) player.hp = 0
       console.log(
