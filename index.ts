@@ -14,8 +14,8 @@ type Move = {
 }
 
 type StatData = {
-    name: string
-    url: string
+  name: string
+  url: string
 }
 
 type Pokemon = {
@@ -35,7 +35,7 @@ type MoveData = {
   }
 }
 
-async function get(url: string): Promise<any> {
+async function get(url: string): Promise<unknown> {
   return await fetch(url).then((res) => res.json())
 }
 
@@ -45,7 +45,7 @@ async function loadPokemon(url: string): Promise<Pokemon> {
 
 async function loadPokemons(): Promise<PokemonEntry[]> {
   const url = "https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0"
-  const result: any = await get(url)
+  const result = (await get(url)) as { results: PokemonEntry[] }
   const pokemons = result.results
 
   return pokemons
@@ -94,9 +94,9 @@ async function selectPokemon(pokemons: PokemonEntry[]): Promise<PokemonEntry> {
   return finalPokemon as PokemonEntry
 }
 
-function getRandom(list: any[]) {
+function getRandom(list: unknown[]) {
   const index = Math.floor(Math.random() * list.length)
-  const value: any = list[index]
+  const value: unknown = list[index]
   list.splice(index, index + 1)
 
   return value
@@ -104,12 +104,12 @@ function getRandom(list: any[]) {
 async function loadMoves(pokemon: Pokemon): Promise<Move[]> {
   const moveDataArray: MoveData[] = []
   for (let i = 0; i < 5; i++) {
-    const move = getRandom(pokemon.moves)
+    const move = getRandom(pokemon.moves) as MoveData
     moveDataArray.push(move)
   }
 
   const promises = moveDataArray.map((move) => get(move.move.url))
-  const result = await Promise.all(promises)
+  const result = (await Promise.all(promises)) as Move[]
 
   return result
 }
@@ -129,7 +129,9 @@ async function main() {
   console.log(
     "Your pokemon is ready to fight. Choosing random pokemon opponent..."
   )
-  const opponentPokemon = await loadPokemon(getRandom(pokemons).url)
+  const opponentPokemon = await loadPokemon(
+    (getRandom(pokemons) as PokemonEntry).url
+  )
 
   console.log("Your opponent is: ", opponentPokemon.name)
 
@@ -177,7 +179,7 @@ async function runFight(player: FightingPokemon, enemy: FightingPokemon) {
     }
 
     if (enemy.hp <= 0) break
-    const enemyMove: Move = getRandom(enemy.moves.slice())
+    const enemyMove = getRandom(enemy.moves.slice()) as Move
 
     console.log("")
     console.log(`Enemy pokemon ${enemy.data.name} uses ${enemyMove.name}!`)
