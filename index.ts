@@ -109,7 +109,14 @@ function getRandom(list: any[]) {
   return value
 }
 
-async function loadMoves(pokemon: Pokemon) {
+type Move = {
+  name: string
+  power: number
+  accuracy: number
+  pp: number
+}
+
+async function loadMoves(pokemon: Pokemon): Promise<Move[]> {
   const moveDataArray: MoveData[] = []
   for (let i = 0; i < 5; i++) {
     const move = getRandom(pokemon.moves)
@@ -119,7 +126,13 @@ async function loadMoves(pokemon: Pokemon) {
   const promises = moveDataArray.map((move) => get(move.move.url))
   const result = await Promise.all(promises)
 
-  console.log({ result })
+  return result
+}
+
+type FightingPokemon = {
+  hp: number
+  data: Pokemon
+  moves: Move[]
 }
 
 async function main() {
@@ -127,9 +140,77 @@ async function main() {
   const pokemons = await loadPokemons()
   const selectedPokemon = await selectPokemon(pokemons)
   const activePokemon: Pokemon = await loadPokemon(selectedPokemon.url)
-  const moves: any = await loadMoves(activePokemon)
-  const attack = loadAttack(activePokemon)
-  // const moves = randomMovesSelection(activePokemon.moves)
+  const moves = await loadMoves(activePokemon)
+  console.log(
+    "Your pokemon is ready to fight. Choosing random pokemon opponent..."
+  )
+  const opponentPokemon = await loadPokemon(getRandom(pokemons).url)
+
+  console.log("Your opponent is: ", opponentPokemon.name)
+
+  const player: FightingPokemon = {
+    data: activePokemon,
+    hp: 300,
+    moves,
+  }
+
+  const enemy: FightingPokemon = {
+    data: opponentPokemon,
+    hp: 300,
+    moves,
+  }
+
+  runFight(player, enemy)
+}
+
+async function runFight(player: FightingPokemon, enemy: FightingPokemon) {
+  let i = 1
+  while (player.hp > 0 && enemy.hp > 0) {
+    console.log(`Turn ${i}`)
+    i++
+    //name and value
+    const choices = player.moves.map((move) => ({
+      name: `${move.name} - Power: ${move.power ?? 0}`,
+      value: move,
+    }))
+    const playerMove = await select({ message: "Choose your move", choices })
+    playerMove.pp -= 1
+
+    console.log(`Your pokemon uses ${playerMove.name}!`)
+    if (Math.random() * 100 <= playerMove.accuracy) {
+      console.log(`It deals ${playerMove.power} damage!`)
+      enemy.hp -= playerMove.power
+      console.log(
+        `Your pokemon hp: ${player.hp} - Enemy pokemon hp: ${enemy.hp}`
+      )
+    } else {
+      console.log("Your pokemon misses its attack!")
+    }
+
+    const enemyMove: Move = getRandom(enemy.moves.slice())
+
+    console.log(`Enemy pokemon ${enemy.data.name} uses ${enemyMove.name}!`)
+    if (Math.random() * 100 <= enemyMove.accuracy) {
+      console.log(`It deals ${enemyMove.power} damage!`)
+      player.hp -= enemyMove.power
+      console.log(
+        `Your pokemon hp: ${player.hp} - Enemy pokemon hp: ${enemy.hp}`
+      )
+    } else {
+      console.log("Enemy pokemon misses its attack!")
+    }
+  }
+  if (player.hp <= 0) {
+    console.log("You lost the fight against", enemy.data.name)
+  } else if (enemy.hp <= 0) {
+    console.log(
+      "You won the fight against",
+      enemy.data.name,
+      "with your ",
+      player.data.name,
+      "!"
+    )
+  }
 }
 
 main()
