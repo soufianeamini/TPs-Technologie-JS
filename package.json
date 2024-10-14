@@ -1,0 +1,10 @@
+{
+	"scripts": {
+		"game": "ts-node index.ts"
+	},
+	"dependencies": {
+		"@inquirer/prompts": "^7.0.0",
+		"@inquirer/select": "^4.0.0",
+		"@types/node": "^22.7.5"
+	}
+}
