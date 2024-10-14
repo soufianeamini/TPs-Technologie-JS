@@ -1,15 +1,15 @@
 {
-	"name": "pokeGame",
-	"scripts": {
-		"game": "ts-node index.ts"
-	},
-	"bin": {
-		"pokeGame": "index.js"
-	},
-	"dependencies": {
-		"@inquirer/prompts": "^7.0.0",
-		"@inquirer/select": "^4.0.0",
-		"@types/node": "^22.7.5",
-		"typescript": "^5.6.3"
-	}
+  "name": "pokeGame",
+  "scripts": {
+    "game": "deno -A index.ts"
+  },
+  "bin": {
+    "pokeGame": "index.ts"
+  },
+  "dependencies": {
+    "@inquirer/prompts": "^7.0.0",
+    "@inquirer/select": "^4.0.0",
+    "@types/node": "^22.7.5",
+    "typescript": "^5.6.3"
+  }
 }

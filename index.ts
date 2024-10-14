@@ -5,6 +5,35 @@ type PokemonEntry = {
   url: string
 }
 
+type Move = {
+  name: string
+  power: number
+  accuracy: number
+  pp: number
+}
+
+type StatData = {
+    name: string
+    url: string
+}
+
+type Pokemon = {
+  name: string
+  stats: {
+    base_stat: number
+    effort: number
+    stat: StatData
+  }[]
+  moves: MoveData[]
+}
+
+type MoveData = {
+  move: {
+    name: string
+    url: string
+  }
+}
+
 async function get(url: string): Promise<any> {
   return await fetch(url).then((res) => res.json())
 }
@@ -64,41 +93,6 @@ async function selectPokemon(pokemons: PokemonEntry[]): Promise<PokemonEntry> {
   return finalPokemon as PokemonEntry
 }
 
-type Pokemon = {
-  name: string
-  stats: {
-    base_stat: number
-    effort: number
-    stat: {
-      name: string
-      url: string
-    }
-  }[]
-  moves: {
-    move: {
-      name: string
-      url: string
-    }
-  }[]
-}
-
-type MoveData = {
-  move: {
-    name: string
-    url: string
-  }
-}
-
-async function loadAttack(pokemon: Pokemon): Promise<number> {
-  const stat: any = await get(
-    pokemon.stats.find((stat) => stat.stat.name === "attack")!.stat.url
-  )
-
-  const charac = await get(stat.characteristics[1].url)
-
-  return charac.possible_values.pop()
-}
-
 function getRandom(list: any[]) {
   const index = Math.floor(Math.random() * list.length)
   const value: any = list[index]
@@ -106,14 +100,6 @@ function getRandom(list: any[]) {
 
   return value
 }
-
-type Move = {
-  name: string
-  power: number
-  accuracy: number
-  pp: number
-}
-
 async function loadMoves(pokemon: Pokemon): Promise<Move[]> {
   const moveDataArray: MoveData[] = []
   for (let i = 0; i < 5; i++) {
@@ -211,7 +197,7 @@ async function runFight(player: FightingPokemon, enemy: FightingPokemon) {
     console.log(
       "You won the fight against",
       enemy.data.name,
-      "with your ",
+      "with your",
       player.data.name,
       "!"
     )
