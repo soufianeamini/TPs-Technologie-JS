@@ -1,7 +1,7 @@
 {
   "name": "pokeGame",
   "scripts": {
-    "game": "deno -A index.ts"
+    "game": "bun index.ts"
   },
   "bin": {
     "pokeGame": "index.ts"

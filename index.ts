@@ -1,3 +1,4 @@
+#!/usr/bin/env bun
 import { input, select } from "@inquirer/prompts"
 
 type PokemonEntry = {
