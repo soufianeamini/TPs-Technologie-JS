@@ -6,13 +6,17 @@ type PokemonEntry = {
   url: string
 }
 
+async function get(url: string): Promise<any> {
+  return await fetch(url).then((res) => res.json())
+}
+
 async function loadPokemon(url: string): Promise<Pokemon> {
-  return (await fetch(url).then((res) => res.json())) as Pokemon
+  return (await get(url)) as Pokemon
 }
 
 async function loadPokemons(): Promise<PokemonEntry[]> {
   const url = "https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0"
-  const result: any = await fetch(url).then((response) => response.json())
+  const result: any = await get(url)
   const pokemons = result.results
 
   return pokemons
@@ -77,15 +81,46 @@ type Pokemon = {
       name: string
       url: string
     }
+  }[]
+}
+
+type MoveData = {
+  move: {
+    name: string
+    url: string
   }
 }
 
-async function loadStats(pokemon: Pokemon) {
-	const statsToFetch = ["hp", "attack"]
-	const stats = pokemon.stats.filter(stat)
+async function loadAttack(pokemon: Pokemon): Promise<number> {
+  const stat: any = await get(
+    pokemon.stats.find((stat) => stat.stat.name === "attack")!.stat.url
+  )
+
+  const charac = await get(stat.characteristics[1].url)
+
+  return charac.possible_values.pop()
 }
 
-async function loadMoves(pokemon: Pokemon) {}
+function getRandom(list: any[]) {
+  const index = Math.floor(Math.random() * list.length)
+  const value: any = list[index]
+  list.splice(index, index + 1)
+
+  return value
+}
+
+async function loadMoves(pokemon: Pokemon) {
+  const moveDataArray: MoveData[] = []
+  for (let i = 0; i < 5; i++) {
+    const move = getRandom(pokemon.moves)
+    moveDataArray.push(move)
+  }
+
+  const promises = moveDataArray.map((move) => get(move.move.url))
+  const result = await Promise.all(promises)
+
+  console.log({ result })
+}
 
 async function main() {
   console.log("Please wait, fetching pokemon data from api..")
@@ -93,7 +128,7 @@ async function main() {
   const selectedPokemon = await selectPokemon(pokemons)
   const activePokemon: Pokemon = await loadPokemon(selectedPokemon.url)
   const moves: any = await loadMoves(activePokemon)
-  const stats = loadStats(activePokemon)
+  const attack = loadAttack(activePokemon)
   // const moves = randomMovesSelection(activePokemon.moves)
 }
 
