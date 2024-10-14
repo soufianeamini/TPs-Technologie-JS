@@ -166,7 +166,9 @@ async function main() {
 async function runFight(player: FightingPokemon, enemy: FightingPokemon) {
   let i = 1
   while (player.hp > 0 && enemy.hp > 0) {
+    console.log("---------")
     console.log(`Turn ${i}`)
+    console.log("---------")
     i++
     //name and value
     const choices = player.moves.map((move) => ({
@@ -176,10 +178,12 @@ async function runFight(player: FightingPokemon, enemy: FightingPokemon) {
     const playerMove = await select({ message: "Choose your move", choices })
     playerMove.pp -= 1
 
+    console.log("")
     console.log(`Your pokemon uses ${playerMove.name}!`)
     if (Math.random() * 100 <= playerMove.accuracy) {
       console.log(`It deals ${playerMove.power} damage!`)
       enemy.hp -= playerMove.power
+      if (enemy.hp < 0) enemy.hp = 0
       console.log(
         `Your pokemon hp: ${player.hp} - Enemy pokemon hp: ${enemy.hp}`
       )
@@ -187,12 +191,15 @@ async function runFight(player: FightingPokemon, enemy: FightingPokemon) {
       console.log("Your pokemon misses its attack!")
     }
 
+    if (enemy.hp <= 0) break
     const enemyMove: Move = getRandom(enemy.moves.slice())
 
+    console.log("")
     console.log(`Enemy pokemon ${enemy.data.name} uses ${enemyMove.name}!`)
     if (Math.random() * 100 <= enemyMove.accuracy) {
       console.log(`It deals ${enemyMove.power} damage!`)
       player.hp -= enemyMove.power
+      if (player.hp < 0) player.hp = 0
       console.log(
         `Your pokemon hp: ${player.hp} - Enemy pokemon hp: ${enemy.hp}`
       )

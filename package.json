@@ -2,6 +2,9 @@
 	"scripts": {
 		"game": "ts-node index.ts"
 	},
+	"bin": {
+
+	},
 	"dependencies": {
 		"@inquirer/prompts": "^7.0.0",
 		"@inquirer/select": "^4.0.0",
