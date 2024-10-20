@@ -27,7 +27,10 @@ async function selectPokemon(pokemons: PokemonEntry[]): Promise<PokemonEntry> {
       message: "What pokemon do you want to use?",
     })
 
-    finalPokemon = pokemons.find((p) => p.name === pokemonName.toLowerCase())
+    finalPokemon = pokemons.find(
+      (p) =>
+        p.name === pokemonName.toLowerCase() || p.name.includes(pokemonName)
+    )
     if (finalPokemon) {
       console.log("Pokemon found!")
       console.log({ pokemon: finalPokemon })
@@ -39,22 +42,6 @@ async function selectPokemon(pokemons: PokemonEntry[]): Promise<PokemonEntry> {
           { name: "no", value: false },
         ],
       })
-    } else {
-      finalPokemon = pokemons.find((p) =>
-        p.name.includes(pokemonName.toLowerCase())
-      )
-
-      if (finalPokemon) {
-        console.log("Similarly named Pokemon found!")
-        console.log({ pokemon: finalPokemon })
-        pokemonFound = await select({
-          message: `Did you mean to choose ${finalPokemon.name}?`,
-          choices: [
-            { name: "yes", value: true },
-            { name: "no", value: false },
-          ],
-        })
-      }
     }
   }
 
