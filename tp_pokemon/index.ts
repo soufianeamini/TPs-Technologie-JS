@@ -1,39 +1,6 @@
 #!/usr/bin/env bun
 import { input, select } from "@inquirer/prompts"
-
-type PokemonEntry = {
-  name: string
-  url: string
-}
-
-type Move = {
-  name: string
-  power: number
-  accuracy: number
-  pp: number
-}
-
-type StatData = {
-  name: string
-  url: string
-}
-
-type Pokemon = {
-  name: string
-  stats: {
-    base_stat: number
-    effort: number
-    stat: StatData
-  }[]
-  moves: MoveData[]
-}
-
-type MoveData = {
-  move: {
-    name: string
-    url: string
-  }
-}
+import { FightingPokemon, Move, MoveData, Pokemon, PokemonEntry } from "./types"
 
 async function get(url: string): Promise<unknown> {
   return await fetch(url).then((res) => res.json())
@@ -112,12 +79,6 @@ async function loadMoves(pokemon: Pokemon): Promise<Move[]> {
   const result = (await Promise.all(promises)) as Move[]
 
   return result
-}
-
-type FightingPokemon = {
-  hp: number
-  data: Pokemon
-  moves: Move[]
 }
 
 async function main() {
