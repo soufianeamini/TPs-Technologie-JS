@@ -1,0 +1,17 @@
+{
+  "name": "tp_express",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+		"compile": "tsc index.ts --outDir dist",
+		"start": "npm run compile && node dist/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "samini",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "typescript": "^5.6.3"
+  }
+}
