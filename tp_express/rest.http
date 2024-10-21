@@ -1,0 +1,29 @@
+POST http://localhost:3001/
+Content-Type: application/json
+
+{
+	"id": 1,
+	"name": "Macbook"
+}
+
+###
+
+GET http://localhost:3001/
+
+###
+
+GET http://localhost:3001/1
+
+### 
+
+PUT http://localhost:3001/1
+Content-Type: application/json
+
+{
+	"id": 1,
+	"name": "Mactest"
+}
+
+### 
+
+DELETE http://localhost:3001/1
