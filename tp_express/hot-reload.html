@@ -1,0 +1,30 @@
+<iframe id="report" src="report.pdf" style="width: 100%;height: 100%;border: none;"></iframe>
+
+<script>
+window.setInterval("reloadIFrame();", 100);
+
+var reload = true
+var lastModified = undefined
+
+function reloadIFrame() {
+	fetch("http://localhost:3000").then(res => {
+		let reloadNow = false
+
+		let newLastModified = res.headers.get("last-modified")
+		if (lastModified === undefined) {
+			lastModified = newLastModified
+			reloadNow = true
+		} else {
+			if (newLastModified !== lastModified)
+				reloadNow = true
+			lastModified = newLastModified
+		}
+
+		var frameHolder=document.getElementById('report');
+		if (reload && reloadNow) {
+			console.log(`File reloaded! ${lastModified}`)
+			frameHolder.src="report.pdf"
+		}
+	})
+}
+</script>
