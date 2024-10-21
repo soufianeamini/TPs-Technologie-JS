@@ -2,14 +2,14 @@ import express from "express"
 const app = express()
 const port = 3001
 
+app.use(express.json())
+
 type Item = {
   id: number
   name: string
 }
 
 let items: Item[] = []
-
-app.use(express.json())
 
 app.post("/", (req, res) => {
   console.log(req.body)
