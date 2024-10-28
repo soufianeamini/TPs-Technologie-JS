@@ -1,8 +1,6 @@
 import { Book, Format, Status } from "./book"
 
 function getCurrentEntryBook(): Book {
-  const titre = document.getElementById("title")
-  console.log("titre", titre)
   const title = document.querySelector<HTMLInputElement>("#title")
     ?.value as string
   const author = document.querySelector<HTMLInputElement>("#author")
@@ -18,7 +16,6 @@ function getCurrentEntryBook(): Book {
 
   const formatNode: any = document.querySelector("#format")
   const format = formatNode.value as Format
-  console.log(`format: ${format}`)
 
   const suggested_by = document.querySelector<HTMLInputElement>("#suggested_by")
     ?.value as string
@@ -34,7 +31,6 @@ function getCurrentEntryBook(): Book {
     suggested_by,
     false
   )
-  console.log(`book:`, book)
 
   return book
 }
@@ -57,7 +53,13 @@ function addBook() {
   const bookContent = Object.keys(book).map((key, index) => {
     const e = document.createElement("p")
     const fieldName = key[0].toUpperCase() + key.slice(1)
-    e.textContent = `${fieldName}: ${(book as any)[key]}`
+    if (fieldName === "NumPagesRead") {
+      let percentage = (book as any)[key]
+      percentage = (+percentage / +book.pages) * 100
+      e.textContent = `${fieldName}: ${percentage}%`
+    } else {
+      e.textContent = `${fieldName}: ${(book as any)[key]}`
+    }
     if (index !== 8) e.textContent += ", "
     e.className = "mx-2"
     return e
