@@ -1,7 +1,4 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.Book = void 0;
-class Book {
+export class Book {
     constructor(title, author, pages, status, price, numPagesRead, format, suggested_by, finished) {
         this.title = title;
         this.author = author;
@@ -27,4 +24,3 @@ class Book {
         console.log("Delete self?");
     }
 }
-exports.Book = Book;

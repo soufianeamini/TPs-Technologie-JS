@@ -1,6 +1,4 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-const book_1 = require("./book");
+import { Book } from "./book";
 let books = [];
 function getCurrentEntryBook() {
     var _a, _b, _c, _d, _e, _f, _g, _h;
@@ -12,7 +10,7 @@ function getCurrentEntryBook() {
     const numPagesRead = +((_f = document.querySelector("#numPagesRead")) === null || _f === void 0 ? void 0 : _f.textContent);
     const format = (_g = document.querySelector("#format")) === null || _g === void 0 ? void 0 : _g.textContent;
     const suggested_by = (_h = document.querySelector("#suggested_by")) === null || _h === void 0 ? void 0 : _h.textContent;
-    const book = new book_1.Book(title, author, pages, status, price, numPagesRead, format, suggested_by, false);
+    const book = new Book(title, author, pages, status, price, numPagesRead, format, suggested_by, false);
     return book;
 }
 function addBook() {
