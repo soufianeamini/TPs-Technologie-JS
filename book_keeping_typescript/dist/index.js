@@ -15,5 +15,26 @@ function getCurrentEntryBook() {
     const book = new book_1.Book(title, author, pages, status, price, numPagesRead, format, suggested_by, false);
     return book;
 }
+function addBook() {
+    const book = getCurrentEntryBook();
+    if (!book.suggested_by ||
+        !book.numPagesRead ||
+        !book.pages ||
+        !book.format ||
+        !book.author ||
+        !book.status ||
+        !book.title ||
+        !book.price) {
+        alert("Please fill all inputs");
+    }
+    const bookContent = Object.keys(book).map((key) => `<p>${book[key]}</p>`);
+    const newBook = `<div>${bookContent}</div>`;
+    booksDiv === null || booksDiv === void 0 ? void 0 : booksDiv.append(newBook);
+}
 const booksDiv = document.getElementById("books");
+const addButton = document.getElementById("add");
+addButton === null || addButton === void 0 ? void 0 : addButton.addEventListener("onclick", (e) => {
+    addBook();
+    console.log("A book has been added!");
+});
 console.log(getCurrentEntryBook());
