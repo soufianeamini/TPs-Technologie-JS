@@ -1,11 +1,9 @@
-## Current errors faced:
+## How to build and run the project
 
-### After adding type="module" and commenting out commonjs
+1. run `npm install` at the root of the project (same directory as this README)
 
+2. run `npm run build`
 
-Cross-Origin Request Blocked: The Same Origin Policy disallows reading the remote resource at file:///app/ensa/js_technology/TP/repo/book_keeping_typescript/dist/index.js. (Reason: CORS request not http).
+3. run `npm run serve`
 
-Layout was forced before the page was fully loaded. If stylesheets are not yet loaded this may cause a flash of unstyled content. markup.js:250:53
-Cross-Origin Request Blocked: The Same Origin Policy disallows reading the remote resource at file:///app/ensa/js_technology/TP/repo/book_keeping_typescript/dist/index.js. (Reason: CORS request not http).
-
-Module source URI is not allowed in this document: “file:///app/ensa/js_technology/TP/repo/book_keeping_typescript/dist/index.js”. index.html:10:56
+4. Open your browser on http://localhost:8000

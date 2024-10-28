@@ -3,10 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Book Keeping</title>
-    <link href="./output.css" rel="stylesheet" />
-		<script> var exports = {}</script>
-    <script defer src="../dist/index.js"></script>
+    <title>Vite + TS</title>
+    <link rel="stylesheet" crossorigin href="./output.css" />
   </head>
   <body class="bg-white dark:bg-slate-800 dark:text-white">
     <div>
@@ -20,31 +18,16 @@
       </div>
 
       <div class="p-6">
-        <button>Add Book</button>
+        <h1>Add Book</h1>
         <div class="flex flex-col">
-          Name:
-          <input
-            class="my-2 w-28 h-6 text-black"
-            type="text"
-            name="name"
-            required
-          />
+					<p>Name</p>
+          <input id="title" class="my-2 w-28 h-6 text-black" type="text" />
 
           Author:
-          <input
-            class="my-2 w-28 h-6 text-black"
-            type="text"
-            name="author"
-            required
-          />
+          <input id="author" class="my-2 w-28 h-6 text-black" type="text" />
 
           Numpages:
-          <input
-            class="my-2 w-28 h-6 text-black"
-            type="number"
-            name="numpages"
-            required
-          />
+          <input id="numpages" class="my-2 w-28 h-6 text-black" type="number" />
 
           Status:
           <div class="my-2 w-28 h-6 text-black">
@@ -59,12 +42,7 @@
           </div>
 
           Price:
-          <input
-            class="my-2 w-28 h-6 text-black"
-            type="number"
-            name="price"
-            required
-          />
+          <input id="price" class="my-2 w-28 h-6 text-black" type="number" />
 
           Format:
           <div class="my-2 w-28 h-6 text-black">
@@ -78,14 +56,13 @@
 
           Suggested By:
           <input
+            id="suggested_by"
             class="my-2 w-28 h-6 text-black"
             type="text"
-            name="suggested_by"
-            required
           />
 
           <button
-						id="add"
+            id="add"
             class="text-black bg-emerald-400 p-4 pb-10 rounded-lg min-w-12 max-w-24 max-h-4"
           >
             <div class="flex align-center justify-center">Add</div>
@@ -94,4 +71,5 @@
       </div>
     </div>
   </body>
+  <script defer type="module" src="/src/main.ts"></script>
 </html>

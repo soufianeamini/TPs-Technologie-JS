@@ -1,24 +1,18 @@
 {
-  "devDependencies": {
-    "@types/web": "^0.0.175",
-    "nodemon": "^3.1.7",
-    "tailwindcss": "^3.4.14",
-    "typescript": "^5.6.3"
-  },
-  "name": "book_keeping_typescript",
-  "version": "1.0.0",
-  "main": "index.js",
+  "name": "test_front",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
   "scripts": {
-    "build": "tsc -w",
-    "start": "node dist/index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "serve": "cd ./dist && http-server -p 8000 --cors",
+    "build": "tsc && vite build"
   },
-  "keywords": [],
-  "author": "samini",
-  "license": "ISC",
-  "description": "",
-  "dependencies": {
-    "lowdb": "^7.0.1",
-    "requirejs": "^2.3.7"
+  "devDependencies": {
+    "autoprefixer": "^10.4.20",
+    "http-server": "^14.1.1",
+    "postcss": "^8.4.47",
+    "tailwindcss": "^3.4.14",
+    "typescript": "~5.6.2",
+    "vite": "^5.4.9"
   }
 }
