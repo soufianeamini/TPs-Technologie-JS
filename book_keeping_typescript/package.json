@@ -1,17 +1,22 @@
 {
   "devDependencies": {
+    "@types/web": "^0.0.175",
+    "tailwindcss": "^3.4.14",
     "typescript": "^5.6.3"
   },
   "name": "book_keeping_typescript",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-		"build": "tsc",
-		"start": "node dist/index.js",
+    "build": "tsc",
+    "start": "node dist/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "samini",
   "license": "ISC",
-  "description": ""
+  "description": "",
+  "dependencies": {
+    "lowdb": "^7.0.1"
+  }
 }
