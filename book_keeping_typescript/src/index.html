@@ -5,19 +5,92 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Book Keeping</title>
     <link href="./output.css" rel="stylesheet" />
-    <script src="dist/index.js"></script>
+		<script defer>var exports = {};</script>
+		<script defer src="https://requirejs.org/docs/release/2.3.5/minified/require.js"></script>
+    <script defer src="../dist/index.js"></script>
   </head>
-  <body>
-    <div class="">
-      <h1 class="p-12 bg-red">Book Keeping</h1>
-
-      <div class="p-12">
-        <h3>Books</h3>
+  <body class="bg-white dark:bg-slate-800 dark:text-white">
+    <div>
+      <div>
+        <h1 class="p-6 text-3xl">Book Keeping</h1>
       </div>
 
-      <div class="p-12">
-        <h3>Add Book</h3>
-        <form action=""></form>
+      <div class="p-6">
+        <h3 class="text-xl">Books</h3>
+        <div id="books"></div>
+      </div>
+
+      <div class="p-6">
+        <button>Add Book</button>
+        <div class="flex flex-col">
+          Name:
+          <input
+            class="my-2 w-28 h-6 text-black"
+            type="text"
+            name="name"
+            required
+          />
+
+          Author:
+          <input
+            class="my-2 w-28 h-6 text-black"
+            type="text"
+            name="author"
+            required
+          />
+
+          Numpages:
+          <input
+            class="my-2 w-28 h-6 text-black"
+            type="number"
+            name="numpages"
+            required
+          />
+
+          Status:
+          <div class="my-2 w-28 h-6 text-black">
+            <select id="status">
+              <option value="Want to read">Want to read</option>
+              <option value="Read">Read</option>
+              <option value="Re-read">Re-read</option>
+              <option value="DNF">DNF</option>
+              <option value="Currently reading">Currently reading</option>
+              <option value="Returned Unread">Returned Unread</option>
+            </select>
+          </div>
+
+          Price:
+          <input
+            class="my-2 w-28 h-6 text-black"
+            type="number"
+            name="price"
+            required
+          />
+
+          Format:
+          <div class="my-2 w-28 h-6 text-black">
+            <select id="format">
+              <option value="Print">Print</option>
+              <option value="PDF">PDF</option>
+              <option value="Ebook">Ebook</option>
+              <option value="AudioBook">AudioBook</option>
+            </select>
+          </div>
+
+          Suggested By:
+          <input
+            class="my-2 w-28 h-6 text-black"
+            type="text"
+            name="suggested_by"
+            required
+          />
+
+          <button
+            class="text-black bg-emerald-400 p-4 pb-10 rounded-lg min-w-12 max-w-24 max-h-4"
+          >
+            <div class="flex align-center justify-center">Add</div>
+          </button>
+        </div>
       </div>
     </div>
   </body>

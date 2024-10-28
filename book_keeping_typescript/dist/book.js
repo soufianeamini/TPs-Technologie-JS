@@ -1,4 +1,6 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.Book = void 0;
 class Book {
     constructor(title, author, pages, status, price, numPagesRead, format, suggested_by, finished) {
         this.title = title;
@@ -14,4 +16,15 @@ class Book {
     currentlyAt() {
         return this.numPagesRead + 1;
     }
+    updatePagesRead(numPagesRead) {
+        if (numPagesRead > this.pages) {
+            numPagesRead = this.pages;
+        }
+        this.pages = numPagesRead;
+    }
+    deleteBook() {
+        // TODO: Figure out what to delete exactly
+        console.log("Delete self?");
+    }
 }
+exports.Book = Book;

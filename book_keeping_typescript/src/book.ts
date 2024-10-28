@@ -1,4 +1,4 @@
-type Status =
+export type Status =
   | "Read"
   | "Re-read"
   | "DNF"
@@ -6,9 +6,9 @@ type Status =
   | "Returned Unread"
   | "Want to read"
 
-type Format = "Print" | "PDF" | "Ebook" | "AudioBook"
+export type Format = "Print" | "PDF" | "Ebook" | "AudioBook"
 
-class Book {
+export class Book {
   title: string
   author: string
   pages: number
@@ -41,12 +41,20 @@ class Book {
     this.finished = finished ?? false
   }
 
-	currentlyAt(): number {
-		return this.numPagesRead + 1
-	}
+  currentlyAt(): number {
+    return this.numPagesRead + 1
+  }
 
-	deleteBook(): void {
-		// TODO: Figure out what to delete exactly
-		console.log("Delete self?")
-	}
+  updatePagesRead(numPagesRead: number) {
+    if (numPagesRead > this.pages) {
+      numPagesRead = this.pages
+    }
+
+    this.pages = numPagesRead
+  }
+
+  deleteBook(): void {
+    // TODO: Figure out what to delete exactly
+    console.log("Delete self?")
+  }
 }
